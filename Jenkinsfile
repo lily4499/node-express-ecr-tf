@@ -10,7 +10,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('lil_AWS_ECR_Secret_access_key')
         AWS_REGION = 'us-east-1'
         REPOSITORY_NAME = 'node-express-app'
-        BUILB_NUMBER = env.BUILD_NUMBER // Declaring the environment variable
+  
     }
     
     stages {
@@ -36,7 +36,7 @@ pipeline {
                     } else if (params.TERRAFORM_ACTION == 'destroy') {
                     //   sh 'aws ecr delete-repository --repository-name ${REPOSITORY_NAME} --force'
                     //   sh 'terraform destroy -auto-approve'
-                       sh 'aws ecr batch-delete-image --repository-name ${REPOSITORY_NAME} --image-ids imageTag="${BUILB_NUMBER}" '
+                       sh 'aws ecr batch-delete-image --repository-name ${REPOSITORY_NAME} --image-ids imageTag=env.BUILD_NUMBER '
 
 
                     } else {
