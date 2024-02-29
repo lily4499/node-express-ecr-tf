@@ -34,7 +34,7 @@ pipeline {
                         sh 'terraform apply -auto-approve'
                     } else if (params.TERRAFORM_ACTION == 'destroy') {
                        sh 'aws ecr delete-repository --repository-name ${REPOSITORY_NAME} --force'
-                       sh 'terraform apply -auto-approve'
+                       sh 'terraform destroy -auto-approve'
                     } else {
                         error 'Invalid Terraform action specified!'
                     }
