@@ -10,6 +10,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('lil_AWS_ECR_Secret_access_key')
         AWS_REGION = 'us-east-1'
         REPOSITORY_NAME = 'node-express-app'
+        BUILB_NUMBER = env.BUILD_NUMBER // Declaring the environment variable
     }
     
     stages {
