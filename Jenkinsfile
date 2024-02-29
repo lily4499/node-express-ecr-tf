@@ -41,7 +41,7 @@ pipeline {
                     def imageTagsArray = imageTags.split("\n")
                     
                     // Use the first image tag for deletion
-                    def imageToDelete = imageTagsArray[0]
+                    imageToDelete = imageTagsArray[0]
                     
                     // Print the image tag to be deleted
                     echo "Image to be deleted: $imageToDelete"
@@ -75,6 +75,8 @@ pipeline {
                 }
             }
         }
+    
+    }
     
     post {
         always {
