@@ -32,7 +32,9 @@ pipeline {
                     if (params.TERRAFORM_ACTION == 'apply') {
                         sh 'terraform apply -auto-approve'
                     } else if (params.TERRAFORM_ACTION == 'destroy') {
-                        sh 'terraform destroy -auto-approve'
+                        echo 'Terraform destroy chosen. Halting pipeline.'
+                        currentBuild.result = 'ABORTED'
+                        error 'Terraform destroy chosen. Halting pipeline.'
                     } else {
                         error 'Invalid Terraform action specified!'
                     }
@@ -51,16 +53,5 @@ pipeline {
                 }
             }
         }
-        stage('End Pipeline if Terraform Action is Destroy') {
-            when {
-                expression { params.TERRAFORM_ACTION == 'destroy' }
-            }
-            steps {
-                echo 'Terraform action is destroy. Ending the pipeline.'
-           //     currentBuild.result = 'SUCCESS' // Mark the pipeline as success
-               
-            }
-        }
     }
 }
-
