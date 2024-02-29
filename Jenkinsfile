@@ -32,9 +32,7 @@ pipeline {
                     if (params.TERRAFORM_ACTION == 'apply') {
                         sh 'terraform apply -auto-approve'
                     } else if (params.TERRAFORM_ACTION == 'destroy') {
-                        echo 'Terraform destroy chosen. Halting pipeline.'
-                        currentBuild.result = 'ABORTED'
-                        error 'Terraform destroy chosen. Halting pipeline.'
+                        sh 'terraform destroy -auto-approve'
                     } else {
                         error 'Invalid Terraform action specified!'
                     }
@@ -50,6 +48,18 @@ pipeline {
                 script {
                     // Trigger another Jenkins job to push Docker image to ECR
                     build job: 'push-node-express-app-ecr', wait: true
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            script {
+                if (params.TERRAFORM_ACTION == 'destroy') {
+                    // Delete ECR repository
+                    sh 'aws ecr delete-repository --repository-name your-repository-name --force'
+                    echo 'ECR repository deleted successfully.'
                 }
             }
         }
