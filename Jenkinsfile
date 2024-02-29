@@ -9,6 +9,7 @@ pipeline {
         AWS_ACCESS_KEY_ID  = credentials('lil_AWS_ECR_Access_key_ID')
         AWS_SECRET_ACCESS_KEY = credentials('lil_AWS_ECR_Secret_access_key')
         AWS_REGION = 'us-east-1'
+        REPOSITORY_NAME = 'node-express-app'
     }
     
     stages {
@@ -58,7 +59,7 @@ pipeline {
             script {
                 if (params.TERRAFORM_ACTION == 'destroy') {
                     // Delete ECR repository
-                   // sh 'aws ecr delete-repository --repository-name your-repository-name --force'
+                   // sh 'aws ecr delete-repository --repository-name ${REPOSITORY_NAME} --force'
                     sh 'terraform destroy -auto-approve'
                     echo 'ECR repository deleted successfully.'
                 }
