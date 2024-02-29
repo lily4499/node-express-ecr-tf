@@ -57,6 +57,7 @@ pipeline {
                     } else if (params.TERRAFORM_ACTION == 'destroy') {
                         // Delete the first image from the ECR repository
                         sh "aws ecr batch-delete-image --repository-name ${REPOSITORY_NAME} --image-ids imageTag='${imageToDelete}' --region ${AWS_REGION}"
+                        sh 'terraform destroy -auto-approve'
                     } else {
                         error 'Invalid Terraform action specified!'
                     }
@@ -76,17 +77,5 @@ pipeline {
             }
         }
     
-    }
-    
-    post {
-        always {
-            script {
-                if (params.TERRAFORM_ACTION == 'destroy') {
-                    // Delete ECR repository
-                    sh 'terraform destroy -auto-approve'
-                    echo 'ECR repository deleted successfully.'
-                }
-            }
-        }
     }
 }
