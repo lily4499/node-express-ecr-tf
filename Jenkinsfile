@@ -57,7 +57,7 @@ pipeline {
             }
             steps {
                 echo 'Terraform action is destroy. Ending the pipeline.'
-                currentBuild.result = 'SUCCESS' // Mark the pipeline as success
+           //     currentBuild.result = 'SUCCESS' // Mark the pipeline as success
                
             }
         }
