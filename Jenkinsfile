@@ -58,7 +58,8 @@ pipeline {
             script {
                 if (params.TERRAFORM_ACTION == 'destroy') {
                     // Delete ECR repository
-                    sh 'aws ecr delete-repository --repository-name your-repository-name --force'
+                   // sh 'aws ecr delete-repository --repository-name your-repository-name --force'
+                    sh 'terraform destroy -auto-approve'
                     echo 'ECR repository deleted successfully.'
                 }
             }
