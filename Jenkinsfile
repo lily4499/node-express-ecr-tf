@@ -6,8 +6,8 @@ pipeline {
     }
     
     environment {
-        AWS_ACCESS_KEY_ID = credentials('lil_AWS-ECR_Access_key_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('lil_AWS-ECR_Secret_access_key')
+        AWS-ECR_ACCESS_KEY_ID = credentials('lil_AWS-ECR_Access_key_ID')
+        AWS-ECR_SECRET_ACCESS_KEY = credentials('lil_AWS-ECR_Secret_access_key')
         AWS_REGION = 'us-east-1'
     }
     
