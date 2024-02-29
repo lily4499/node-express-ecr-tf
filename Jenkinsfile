@@ -51,6 +51,16 @@ pipeline {
                 }
             }
         }
+        stage('End Pipeline if Terraform Action is Destroy') {
+            when {
+                expression { params.TERRAFORM_ACTION == 'destroy' }
+            }
+            steps {
+                echo 'Terraform action is destroy. Ending the pipeline.'
+                currentBuild.result = 'SUCCESS' // Mark the pipeline as success
+                error 'Terraform action is destroy. Pipeline terminated.'
+            }
+        }
     }
 }
 
