@@ -1,16 +1,15 @@
-provider "aws" {
-  region = "us-east-1"  # Change to your desired region
+provider "google" {
+  project = "lili-devops"
+  region  = "us-east4"
 }
 
-# Define variables
-variable "repository_name" {
-  description = "Name of the ECR repository"
-  default     = "node-express-app"  # Change with your repository name
+data "google_container_registry_repository" "my_repo" {
+  filter {
+    name = "my-repo-lili"
+  }
 }
 
-# Create the ECR repository
-resource "aws_ecr_repository" "lil_ecr_repository" {
-  name = var.repository_name
-  
+output "repository_name" {
+  value = data.google_container_registry_repository.my_repo.repositories[0].name
 }
 
